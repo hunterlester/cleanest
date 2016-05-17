@@ -1,0 +1,26 @@
+{
+  "name": "cleanest",
+  "version": "1.0.0",
+  "description": "clean nested data for easier consumption by Redux store",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hunterlester/cleanest.git"
+  },
+  "keywords": [
+    "redux",
+    "react",
+    "nested",
+    "tree",
+    "flatten"
+  ],
+  "author": "Hunter Lester <guilfordhunter@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hunterlester/cleanest/issues"
+  },
+  "homepage": "https://github.com/hunterlester/cleanest#readme"
+}
