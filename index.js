@@ -42,8 +42,13 @@ function cleanest(structure) {
       Object.keys(structure).map(function (key) {
         if (structure[key].__proto__ == Array.prototype) {
           structureObj = Object.assign({}, structure, structureObj, _defineProperty({}, key, cleanest(structure[key])));
+        } else if (structure[key].__proto__ == Object.prototype) {
+          structureObj = Object.assign({}, structure, structureObj, _defineProperty({}, key, cleanest(structure[key])));
+        } else {
+          structureObj = Object.assign({}, structure, structureObj);
         }
       });
+
       return {
         v: structureObj
       };
