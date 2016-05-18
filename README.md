@@ -1,6 +1,6 @@
-# cleanest [![Build Status](https://travis-ci.org/hunterlester/cleanest.svg?branch=master)](https://travis-ci.org/hunterlester/cleanest)
+# cleanest
+Clean nested data for easier consumption by Redux reducers [![Build Status](https://travis-ci.org/hunterlester/cleanest.svg?branch=master)](https://travis-ci.org/hunterlester/cleanest)
 
-##### Clean nested data for easier consumption by Redux reducers.  
 Given a nested array of objects: The array is replaced with an object and each object within the original array is replaced with a key value, where `key == object._id`;
 
 Note: Input data is not mutated. `Object.assign` is used within the function to compose new objects;
