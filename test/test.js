@@ -1,7 +1,7 @@
-var cleanest = require('../index.js');
+var cleanest = require('../index.js').default;
 
-var userObj = {
 
-}
 
-cleanest(userObj);
+var testObj = JSON.parse('{"username":"guilfordhunter","_id":"57361fc","token":"eyJ0eXAiOiJKV1QiLCJh","study_maps":[{"_id":"573670f7a84bc","user":"57361fca8ee4b","subject":"Rust","__v":2,"links":[{"_id":"57371c4e4fd776","user":"57361fca8ee4b","uri":"rust-lang.org","title":"Rust Documentation","study_map":"573670f7a84bcc2eb75d9947","__v":1,"links":[],"breadcrumbs":[{"_id":"573a0a4646431cdcd896213e","link":"57371c4e4fd77666b9f05565","content":"Steve Klabnik","user":"57361fca8ee4b6cead15240a","study_map":"573670f7a84bcc2eb75d9947","__v":1,"date":"2016-05-16T17:58:30.063Z","messages":[{"_id":"573a0a4d46431cdcd8962140","study_map":"573670f7a84bcc2eb75d9947","breadcrumb":"573a0a4646431cdcd896213e","body":"he is the best","user":{"_id":"57361fca8ee4b6cead15240a","displayName":"hunterlester","hash":"845183d8d688b32a35e2a4c59","salt":"c4cd18","username":"guilfordhunter","__v":2,"points":1,"study_maps":["573670f7a84bcc2eb75d9947","5737415e3802a477bd2387ab"],"breadcrumbs":[],"date":"2016-05-13T18:41:14.536Z"},"link":"57371c4e4fd77666b9f05565","__v":0}],"keywords":[]}],"date":"2016-05-14T12:38:38.018Z"}],"breadcrumbs":[{"_id":"573726da767f8054ba048bc9","study_map":"573670f7a84bcc2eb75d9947","content":"Checkout Rust by Example","user":"57371ca64fd77666b9f05567","__v":0,"date":"2016-05-14T13:23:38.258Z","messages":[],"keywords":[]}],"date":"2016-05-14T00:27:35.885Z","keywords":["rust","systems","cs"]},{"_id":"5737415e3802a477bd2387ab","user":"57361fca8ee4b6cead15240a","subject":"Redux","__v":1,"links":[],"breadcrumbs":[{"_id":"57389da0a0c9bb59c6d1e4fc","study_map":"5737415e3802a477bd2387ab","content":"connect with Dan Abramov","user":"57361fca8ee4b6cead15240a","__v":0,"date":"2016-05-15T16:02:40.277Z","messages":[],"keywords":[]}],"date":"2016-05-14T15:16:46.452Z","keywords":["redux","react","immutable","functional"]}],"displayName":"hunterlester","points":1}');
+
+console.log(cleanest(testObj));

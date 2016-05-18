@@ -1,4 +1,4 @@
-export function cleanest(structure) {
+export default function cleanest(structure) {
     if(structure.__proto__ == Array.prototype) {
       let structureObj = {};
 
