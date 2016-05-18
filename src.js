@@ -19,11 +19,16 @@ export default function cleanest(structure) {
     } else if (structure.__proto__ == Object.prototype) {
       let structureObj = {};
 
-      Object.keys(structure).map(function(key) {
-          if(structure[key].__proto__ == Array.prototype) {
-              structureObj = Object.assign({}, structure, structureObj, {[key]: cleanest(structure[key])});
-          }
-      });
+       Object.keys(structure).map(function(key) {
+            if(structure[key].__proto__ == Array.prototype) {
+                structureObj = Object.assign({}, structure, structureObj, {[key]: cleanest(structure[key])});
+            } else if (structure[key].__proto__ == Object.prototype) {
+                structureObj = Object.assign({}, structure, structureObj, {[key]: cleanest(structure[key])});
+            } else {
+                structureObj = Object.assign({}, structure, structureObj);
+            }
+        });
+
       return structureObj;
 
     }
