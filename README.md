@@ -7,6 +7,7 @@ Note: Input data is not mutated. `Object.assign` is used within the function to 
 
 I'm intending to use this piece of code in production with the following assumptions:
 - every object has a unique `_id` property
+- every object has a timestamp
 - Deeply nested tree view data structure
 - Redux
 - React
@@ -28,6 +29,22 @@ I'm intending to use this piece of code in production with the following assumpt
 
     // non-es6
     var cleanest = require('cleanest').default;
+
+    //Clean returned API data:
+
+    return fetch(BASE_URL + endpoint, config)
+      .then(response =>
+        response.json().then(json => ({ json, response }))
+      ).then(({ json, response }) => {
+        if (!response.ok) {
+          return Promise.reject(json)
+        }
+
+        let cleaned_json = cleanest(json);
+
+        return cleaned_json;
+      }).catch(err => console.log(err))
+    }
 
 
 
@@ -106,3 +123,68 @@ I'm intending to use this piece of code in production with the following assumpt
         }
       }
     }
+### Compare reducer function:
+#### Before cleanest
+
+    case LINK_MESSAGE_POST:
+    return state.merge({
+      study_maps: state.get('study_maps').map(study_map => {
+        if(JSON.parse(action.response).study_map === study_map.get('_id')) {
+          return study_map.set('links',
+            study_map.get('links').map(link => {
+              if(JSON.parse(action.response).link === link.get('_id')) {
+                return link.set('breadcrumbs',
+                    link.get('breadcrumbs').map(breadcrumb => {
+                      if(JSON.parse(action.response).breadcrumb === breadcrumb.get('_id')) {
+                        return breadcrumb.set('messages',
+                          breadcrumb.get('messages').push(fromJS(JSON.parse(action.response)))
+                        );
+                      } else {
+                        return breadcrumb;
+                      }
+                    })
+                );
+              } else {
+                return link;
+              }
+            })
+          )
+        } else {
+          return study_map;
+        }
+      })
+    });
+
+#### After cleanest
+
+    case LINK_MESSAGE_POST:
+      let message = action.response;
+      return state.setIn(
+        ['study_maps', message.study_map,
+        'links', message.link, 'breadcrumbs',
+        message.breadcrumb, 'messages'], fromJS(message));
+
+### localStorage CRUD
+#### Before
+
+    let parsedStudyMaps = JSON.parse(localStorage.getItem('study_maps'));
+            parsedStudyMaps.find(study_map => {
+              if (JSON.parse(text).study_map == study_map._id) {
+                study_map.links.find(link => {
+                  if(JSON.parse(text).link == link._id) {
+                    link.breadcrumbs.find(breadcrumb => {
+                      if(JSON.parse(text).breadcrumb == breadcrumb._id) {
+                        breadcrumb.messages.push(JSON.parse(text));
+                      }
+                    })
+                  }
+                })
+              }
+            });
+
+#### After
+    let parsedStudyMaps = JSON.parse(localStorage.getItem('study_maps'));
+    parsedStudyMaps[cleaned_json.study_map]
+      .links[cleaned_json.link]
+      .breadcrumbs[cleaned_json.breadcrumb]
+      .messages[cleaned_json._id] = cleaned_json;
